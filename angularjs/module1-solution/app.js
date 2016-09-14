@@ -8,15 +8,15 @@ LunchCheckController.$inject = ['$scope'];
 function LunchCheckController($scope) {
 
   $scope.getLunchCheck= function () {
-    var lunchMenu = $scope.lunchMenu ;
     var message = "Please enter data first";
+    var lunchMenu = $scope.lunchMenu;
+        lunchMenu = (lunchMenu === undefined) ? "" : lunchMenu.trim();
 
-    if (lunchMenu != null) {
-      if (lunchMenu.trim() != "") {
-        var countDishes= lunchMenu.indexOf(',');
-        message = (countDishes <= 3) ? "Enjoy!":"Too much!";
-      }
+    if (lunchMenu != "") {
+        var countDishes= (lunchMenu.split(',').length - 1);
+        message = (countDishes <= 3) ? "Enjoy!" : "Too much!";
     }
+
    $scope.message = message;
   };
 
