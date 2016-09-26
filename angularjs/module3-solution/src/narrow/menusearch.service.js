@@ -12,13 +12,13 @@ function MenuCategoriesService($http, ApiBasePath) {
   service.getMatchedMenuItems = function (searchTerm) {
     var response = $http({
       method: "GET",
-      url: (ApiBasePath + "/categories.json")
+      url: (ApiBasePath + "/menu_items.json")
     }).then(function (result) {
       // process result and only keep items that match
         function containsFilter(value) {
-          return value.name.indexOf(searchTerm) !== -1;
+          return (value.name.indexOf(searchTerm) !== -1)||(value.description.indexOf(searchTerm) !== -1);
         }
-        var foundItems = result.data.filter(containsFilter);
+        var foundItems = result.data.menu_items.filter(containsFilter);
         // return processed items
         return foundItems;
       });
