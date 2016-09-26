@@ -9,25 +9,21 @@ MenuCategoriesService.$inject = ['$http', 'ApiBasePath']
 function MenuCategoriesService($http, ApiBasePath) {
   var service = this;
 
-  var items = [];
-
-  service.getMatchedMenuItems = function () {
+  service.getMatchedMenuItems = function (searchTerm) {
     var response = $http({
       method: "GET",
       url: (ApiBasePath + "/categories.json")
-    });
-    console.log(response);
-    return response;
-  };
-
-  service.removeItem = function (itemIndex) {
-    items.splice(itemIndex, 1);
-  };
-
-  service.getItems = function () {
-    return items;
-  };
-
+    }).then(function (result) {
+      // process result and only keep items that match
+        function containsFilter(value) {
+          return value.name.indexOf(searchTerm) !== -1;
+        }
+        var foundItems = result.data.filter(containsFilter);
+        // return processed items
+        return foundItems;
+      });
+      return response;
+    };
 }
 
 })();

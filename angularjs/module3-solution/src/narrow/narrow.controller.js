@@ -11,20 +11,20 @@ function NarrowItDownController(MenuCategoriesService) {
   menu.searchTerm= "";
 
   menu.searchText = function () {
-    var promise = MenuCategoriesService.getMatchedMenuItems();
 
-    promise.then(function (response) {
-      var searchValue = "Chicken";
-      function containsFilter(value) {
-        return value.name.indexOf(menu.searchTerm) !== -1;
-      }
-      var foundItems = response.data.filter(containsFilter);
+    if (!menu.searchTerm == ""){
+      var promise = MenuCategoriesService.getMatchedMenuItems(menu.searchTerm);
 
-      menu.items = foundItems;
-    })
-    .catch(function (error) {
-      console.log("Something went terribly wrong.");
-    });
+      promise.then(function (response) {
+        menu.items = response;
+      })
+      .catch(function (error) {
+        console.log("Something went terribly wrong.");
+      });
+    }else{
+      menu.items = [];
+    }
+
   }
 
   menu.removeItem = function (itemIndex) {
