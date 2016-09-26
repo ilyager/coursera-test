@@ -3,7 +3,7 @@
 
 angular.module('NarrowItDownApp')
 .service('MenuCategoriesService', MenuCategoriesService)
-.constant('ApiBasePath', "http://davids-restaurant.herokuapp.com");
+.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
 
 MenuCategoriesService.$inject = ['$http', 'ApiBasePath']
 function MenuCategoriesService($http, ApiBasePath) {
